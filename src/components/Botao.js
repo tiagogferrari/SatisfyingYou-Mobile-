@@ -1,4 +1,5 @@
-import { StyleSheet, TouchableOpacity } from "react-native"
+import { StyleSheet, TouchableOpacity, Text } from "react-native"
+
 
 
 const Botao = (props) => {
@@ -14,8 +15,19 @@ const Botao = (props) => {
 
 const estilos = StyleSheet.create({
     fundo: {
+        width: 150,
+        backgroundColor: 'grey',
+        marginBottom: 10,
+        borderColor: 'black',
+        borderWidth: 2,
+        borderRadius: 20,
+        padding: 5
     },
     texto: {
+        color: 'black',
+        fontSize: 20,
+        textAlign: 'center',
+        fontWeight: 'bold'
     }
 })
 

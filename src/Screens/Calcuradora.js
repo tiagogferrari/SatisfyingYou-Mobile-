@@ -16,7 +16,7 @@ const theme = {
   }
 }
 
-const Calculadora = () => {
+const Calculadora = (props) => {
 
   const [txtPeso, setPeso] = useState('')
   const [txtAltura, setAltura] = useState('')
@@ -36,6 +36,11 @@ const Calculadora = () => {
     setAltura('')
     setPeso('')
     setImc('')
+  }
+
+  const voltar = () => {
+    props.navigation.navigate('Login')
+    //props.navigation.goBack() (só volta pra anterior)
   }
 
   return (
@@ -76,6 +81,7 @@ const Calculadora = () => {
         <View style={estilos.vBotoes}>
           <Botao texto="CALCULAR" funcao={calculaImc} />
           <Botao texto="LIMPAR" funcao={limpar} />
+          <Botao texto="VOLTAR" funcao={voltar} />
 
           <Text style={estilos.imc}>{txtImc}</Text>
         </View>
