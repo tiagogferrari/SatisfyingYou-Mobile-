@@ -8,7 +8,7 @@ const Login = (props) => {
     const [password, setPassword] = useState('')
 
     const goToCalc = () => {
-        props.navigation.navigate('Drawer')
+        props.navigation.navigate('')
 
     }
 
