@@ -20,7 +20,7 @@ const estilos = StyleSheet.create({
         marginBottom: 10,
         borderColor: 'black',
         borderWidth: 2,
-        borderRadius: 20,
+        borderRadius: 1,
         padding: 5
     },
     texto: {
