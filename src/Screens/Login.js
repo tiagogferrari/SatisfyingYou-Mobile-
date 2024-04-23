@@ -21,11 +21,14 @@ const Login = (props) => {
         props.navigation.navigate('RecuperarSenha')
     }
 
-    //<Icon name="sentiment-satisfied-alt" size={50} color="#000000" />
+
 
     return (
         <View style={estilos.view}>
-            <Text style={estilos.titulo}>Satisfying.you</Text>
+            <View style={estilos.header}>
+                <Text style={estilos.titulo}>Satisfying.you</Text>
+                <Icon name="sentiment-satisfied-alt" size={50} color="white" />
+            </View>
             <Text style={estilos.label}>E-mail</Text>
             <TextInput style={estilos.TextInput} value={email} onChangeText={setEmail} placeholder="Insira seu e-mail" />
             <Text style={estilos.label}>Senha</Text>
@@ -44,6 +47,10 @@ const estilos = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    header: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
     label: {
         alignSelf: 'flex-start',
         marginLeft: '17%',
@@ -54,6 +61,7 @@ const estilos = StyleSheet.create({
         color: 'white',
         fontSize: 30,
         textAlign: 'center',
+        marginRight: 20,
     },
     TextInput: {
         marginBottom: 20,
