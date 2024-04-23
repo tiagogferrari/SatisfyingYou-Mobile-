@@ -146,7 +146,7 @@ const estilos = StyleSheet.create({
     marginBottom: 15
   },
   TextInput: {
-    marginTop:10,
+    marginTop: 10,
     fontSize: 25,
     width: 280,
   },
