@@ -3,9 +3,6 @@ import { View, StyleSheet, Button } from 'react-native';
 import { Searchbar, Card, Text } from 'react-native-paper';
 import { createStackNavigator } from '@react-navigation/stack';
 
-
-const Stack = createStackNavigator();
-
 const Home = () => {
     return (
         <View style={styles.container}>
