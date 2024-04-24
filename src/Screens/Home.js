@@ -1,29 +1,26 @@
 import React from 'react';
 import { View, StyleSheet, Button } from 'react-native';
-import { Searchbar, Card } from 'react-native-paper';
+import { Searchbar, Card, Text } from 'react-native-paper';
+import { createStackNavigator } from '@react-navigation/stack';
+
+
+const Stack = createStackNavigator();
 
 const Home = () => {
     return (
         <View style={styles.container}>
-            <View style={styles.searchBarContainer}>
+            <View>
                 <Searchbar placeholder="Insira o termo de busca..." />
             </View>
-            <View style={styles.cardsContainer}>
+            <View style={styles.cardContainer}>
                 <Card style={styles.card}>
                     <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
-                    <Card.Title title="Card Title" />
-                </Card>
-                <Card style={styles.card}>
-                    <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
-                    <Card.Title title="Card Title" />
-                </Card>
-                <Card style={styles.card}>
-                    <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
-                    <Card.Title title="Card Title" />
+                    <Card.Title title="Card Title" subtitle="Card Subtitle" />
+
                 </Card>
             </View>
-            <View style={styles.buttonContainer}>
-                <Button title="Meu Botão" onPress={() => { }} />
+            <View>
+                <Button title="Nova Pesquisa" onPress={() => { }} />
             </View>
         </View>
     )
@@ -34,24 +31,14 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 10,
     },
-    searchBarContainer: {
-        height: '20%', 
-    },
-    cardsContainer: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between',
-        height: '60%',
+    cardContainer: {
+        flex: 0.9,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     card: {
         width: '30%',
-        height: '40%', 
-        marginBottom: 10,
-    },
-    buttonContainer: {
-        height: '20%', // Botão ocupa 20% da altura
-        justifyContent: 'center',
-        alignItems: 'center',
+        height: '100%',
     },
 });
 
