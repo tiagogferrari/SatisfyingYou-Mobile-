@@ -15,7 +15,7 @@ const App = () => {
       <Stack.Navigator initialRouteName="Login" screenOptions={{headerShown: false, headerStyle: { backgroundColor: '#2B1D62' },headerTintColor: 'white',}}>
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
         <Stack.Screen name="Drawer" component={Drawer} />
-        <Stack.Screen name="CriarConta" component={CriarConta} options={{ headerShown: true }} />
+        <Stack.Screen name="CriarConta" component={CriarConta} options={{ headerShown: true }}/>
         <Stack.Screen name="RecuperarSenha" component={RecuperarSenha} options={{ headerShown: true }} />
       </Stack.Navigator>
 

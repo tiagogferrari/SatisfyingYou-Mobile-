@@ -10,7 +10,7 @@ const CriarConta = () => {
             <TextInput style={estilos.TextInput} placeholder="Insira sua senha" />
             <Text style={estilos.label}>Repita sua senha</Text>
             <TextInput style={estilos.TextInput} placeholder="Repita sua senha" />
-            <Button style={estilos.BtnC}> CADASTRAR </Button>
+            <Button labelStyle={estilos.BtnText} style={estilos.BtnC}> CADASTRAR </Button>
 
         </View>
     )
@@ -28,6 +28,7 @@ const estilos = StyleSheet.create({
         marginLeft: '17%',
         marginBottom: 5,
         color: 'white',
+        fontFamily: 'AveriaLibre-Regular'
     },
     TextInput: {
         marginBottom: 20,
@@ -39,6 +40,11 @@ const estilos = StyleSheet.create({
         borderRadius: 0,
         marginBottom: 10,
         width: 500,
+    },
+    BtnText: {
+        color: 'white',
+        fontFamily: 'AveriaLibre-Regular',
+        fontSize: 20
     },
 })
 

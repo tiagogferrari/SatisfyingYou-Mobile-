@@ -6,7 +6,7 @@ const RecuperarSenha = () => {
         <View style={estilos.view}>
             <Text style={estilos.label}>E-mail</Text>
             <TextInput style={estilos.TextInput} placeholder="Insira seu e-mail" />
-            <Button style={estilos.BtnC}> RECUPERAR </Button>
+            <Button labelStyle={estilos.BtnText} style={estilos.BtnC}> RECUPERAR </Button>
 
         </View>
     )
@@ -24,6 +24,7 @@ const estilos = StyleSheet.create({
         marginLeft: '17%',
         marginBottom: 5,
         color: 'white',
+        fontFamily: 'AveriaLibre-Regular'
     },
     TextInput: {
         marginBottom: 20,
@@ -35,6 +36,11 @@ const estilos = StyleSheet.create({
         borderRadius: 0,
         marginBottom: 10,
         width: 500,
+    },
+    BtnText: {
+        color: 'white',
+        fontFamily: 'AveriaLibre-Regular',
+        fontSize: 20
     },
 })
 
