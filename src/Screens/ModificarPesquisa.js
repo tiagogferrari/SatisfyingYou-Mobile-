@@ -1,7 +1,7 @@
 import { Text, View, StyleSheet } from "react-native"
 import { TextInput, Button } from "react-native-paper";
 
-const NovaPesquisa = () => {
+const ModificarPesquisa = () => {
     return (
         <View style={estilos.view}>
             <Text style={estilos.label}>Nome</Text>
@@ -10,7 +10,7 @@ const NovaPesquisa = () => {
             <TextInput style={estilos.TextInput} placeholder="Insira data" />
             <Text style={estilos.label}>Imagem</Text>
             <Text>?</Text>
-            <Button labelStyle={estilos.BtnText} style={estilos.BtnC}> CADASTRAR </Button>
+            <Button labelStyle={estilos.BtnText} style={estilos.BtnC}>SALVAR</Button>
         </View>
     )
 }
@@ -47,4 +47,4 @@ const estilos = StyleSheet.create({
     },
 })
 
-export default NovaPesquisa
+export default ModificarPesquisa

@@ -1,6 +1,8 @@
 import { createDrawerNavigator } from "@react-navigation/drawer"
 import Home from "./Home"
 import { Text } from "react-native-paper"
+import NovaPesquisa from "./NovaPesquisa";
+import ModificarPesquisa from "./ModificarPesquisa";
 
 const DrawerNavigator = createDrawerNavigator()
 
@@ -10,6 +12,8 @@ const Drawer = () => {
     return (
         <DrawerNavigator.Navigator screenOptions={{ drawerActiveTintColor: '#2B1D62', headerStyle: { backgroundColor: '#2B1D62' }}}>
             <DrawerNavigator.Screen name="Home" component={Home}/>
+            <DrawerNavigator.Screen name="Nova Pesquisa" component={NovaPesquisa}/>
+            <DrawerNavigator.Screen name="Modificar Pesquisa" component={ModificarPesquisa}/>
         </DrawerNavigator.Navigator>
     )
 }
