@@ -6,15 +6,14 @@ import CriarConta from "./CriarConta"
 
 const DrawerNavigator = createDrawerNavigator()
 
-//<DrawerNavigator.Screen name="" component={}/>
-//<DrawerNavigator.Screen name="Calculadora" component={Calculadora}/>
+//<DrawerNavigator.Screen name="Criar conta" component={CriarConta}/>
+//<DrawerNavigator.Screen name="Nova Pesquisa" component={NovaPesquisa}/>
+
 
 const Drawer = () => {
     return (
-        <DrawerNavigator.Navigator screenOptions={{ drawerActiveTintColor: 'red'}}>
+        <DrawerNavigator.Navigator screenOptions={{ drawerActiveTintColor: '#2B1D62', headerStyle: { backgroundColor: '#2B1D62' }}}>
             <DrawerNavigator.Screen name="Home" component={Home}/>
-            <DrawerNavigator.Screen name="Criar conta" component={CriarConta}/>
-            <DrawerNavigator.Screen name="Nova Pesquisa" component={NovaPesquisa}/>
         </DrawerNavigator.Navigator>
     )
 }
