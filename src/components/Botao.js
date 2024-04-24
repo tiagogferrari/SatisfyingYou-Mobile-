@@ -1,7 +1,5 @@
 import { StyleSheet, TouchableOpacity, Text } from "react-native"
 
-
-
 const Botao = (props) => {
     
     const texto = props.texto

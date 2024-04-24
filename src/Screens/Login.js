@@ -21,8 +21,6 @@ const Login = (props) => {
         props.navigation.navigate('RecuperarSenha')
     }
 
-
-
     return (
         <View style={estilos.view}>
             <View style={estilos.header}>

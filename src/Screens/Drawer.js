@@ -1,14 +1,10 @@
 import { createDrawerNavigator } from "@react-navigation/drawer"
 import Home from "./Home"
-import NovaPesquisa from "./NovaPesquisa"
-import Calculadora from "./Calcuradora"
-import CriarConta from "./CriarConta"
+import { Text } from "react-native-paper"
 
 const DrawerNavigator = createDrawerNavigator()
 
-//<DrawerNavigator.Screen name="Criar conta" component={CriarConta}/>
-//<DrawerNavigator.Screen name="Nova Pesquisa" component={NovaPesquisa}/>
-
+const CustomComponent = () => <Text>Texto Personalizado</Text>;
 
 const Drawer = () => {
     return (
