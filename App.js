@@ -25,18 +25,18 @@ const App = () => {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="Home" 
-          component={Drawer} 
+          name="Home"
+          component={Drawer}
         />
         <Stack.Screen
           name="CriarConta"
           component={CriarConta}
-          options={{ headerShown: true, headerTitle:  'Nova Conta' }}
+          options={{ headerShown: true, headerTitle: 'Nova Conta', headerTitleStyle: { fontFamily: 'AveriaLibre-Regular' } }}
         />
         <Stack.Screen
           name="RecuperarSenha"
           component={RecuperarSenha}
-          options={{ headerShown: true, headerTitle:  'Recuperação de senha' }}
+          options={{ headerShown: true, headerTitle: 'Recuperação de senha', headerTitleStyle: { fontFamily: 'AveriaLibre-Regular' } }}
         />
         <Stack.Screen name="Agradecimento" component={Agradecimento} />
         <Stack.Screen name="Coleta" component={Coleta} />
