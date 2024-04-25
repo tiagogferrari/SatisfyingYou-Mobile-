@@ -130,7 +130,7 @@ const Login = props => {
           <View style={styles.content}>
             <View style={styles.header}>
               <Text style={styles.titulo}>Satisfying.you</Text>
-              <Icon name="sentiment-satisfied-alt" size={75} color="white" />
+              <Icon name="sentiment-satisfied-alt" size={60} color="white" />
             </View>
             <View style={styles.form}>
               <View style={styles.inputContainer}>
