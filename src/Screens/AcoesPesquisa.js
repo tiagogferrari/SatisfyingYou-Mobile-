@@ -17,17 +17,31 @@ const styles = StyleSheet.create({
 
     },
     image: {
-        width: 150,
-        height: 150,
+        width: 75,
+        height: 75,
+        backgroundColor: '#312464',
+        
     },
     title: {
         fontSize: 26,
         fontFamily: 'AveriaLibre-Regular',
-        color: colors.blue,
+        color: 'white',
+        marginTop: 10,
     },
-    card: {
+    space: {
         margin: 10,
     },
+    card: {
+        fontFamily: 'AveriaLibre-Regular',
+        backgroundColor: '#312464',
+        padding: 30,
+        paddingBottom: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    cardTitle:{
+        marginTop:10,
+    }
 
 });
 
@@ -49,22 +63,22 @@ const AcoesPesquisa = props => {
     return (
         <View style={styles.view}>
             <View style={styles.cardContainer}>
-                <TouchableOpacity onPress={() => Modificar()} style={styles.card}>
-                    <Card>
+                <TouchableOpacity onPress={() => Modificar()} style={styles.space}>
+                    <Card style={styles.card}>
                         <Card.Cover source={modificar} style={styles.image} />
-                        <Card.Title title="Modificar" style={styles.title} />
+                        <Card.Title title="Modificar" titleStyle={styles.title} style={styles.cardTitle}/>
                     </Card>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => ColetarDados()} style={styles.card}>
-                    <Card>
+                <TouchableOpacity onPress={() => ColetarDados()} style={styles.space}>
+                    <Card style={styles.card}>
                         <Card.Cover source={coletar} style={styles.image} />
-                        <Card.Title title="Coletar dados" style={styles.title} />
+                        <Card.Title title="Coletar dados" titleStyle={styles.title} style={styles.cardTitle} />
                     </Card>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => Relatorio()} style={styles.card}>
-                    <Card>
+                <TouchableOpacity onPress={() => Relatorio()} style={styles.space}>
+                    <Card style={styles.card}>
                         <Card.Cover source={relatorio} style={styles.image} />
-                        <Card.Title title="Relatório" style={styles.title} />
+                        <Card.Title title="Relatório" titleStyle={styles.title} style={styles.cardTitle}/>
                     </Card>
                 </TouchableOpacity>
             </View >
