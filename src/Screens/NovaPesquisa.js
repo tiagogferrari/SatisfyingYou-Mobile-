@@ -4,21 +4,23 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 
 const NovaPesquisa = () => {
     return (
-        <View style={estilos.view}>
-            <Text style={estilos.label}>Nome</Text>
-            <TextInput style={estilos.TextInput} placeholder="Insira seu nome" />
-            <Text style={estilos.label}>Data</Text>
-            <TextInput
-                style={estilos.TextInput}
-                placeholder="Insira a data"
-                right={<TextInput.Icon icon={() => <Fontisto name="date" size={24} color="#989897" />} />}
-            />
-            <Text style={estilos.label}>Imagem</Text>
-            <View style={estilos.addImg}>
-                <Text style={estilos.texto}>Câmera/Galeria de imagens</Text>
+        <ScrollView>
+            <View style={estilos.view}>
+                <Text style={estilos.label}>Nome</Text>
+                <TextInput style={estilos.TextInput} placeholder="Insira seu nome" />
+                <Text style={estilos.label}>Data</Text>
+                <TextInput
+                    style={estilos.TextInput}
+                    placeholder="Insira a data"
+                    right={<TextInput.Icon icon={() => <Fontisto name="date" size={24} color="#989897" />} />}
+                />
+                <Text style={estilos.label}>Imagem</Text>
+                <View style={estilos.addImg}>
+                    <Text style={estilos.texto}>Câmera/Galeria de imagens</Text>
+                </View>
+                <Button labelStyle={estilos.BtnText} style={estilos.BtnC}> CADASTRAR </Button>
             </View>
-            <Button labelStyle={estilos.BtnText} style={estilos.BtnC}> CADASTRAR </Button>
-        </View>
+        </ScrollView>
     )
 }
 
