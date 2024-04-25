@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, SafeAreaView, FlatList } from 'react-native';
+import { View, StyleSheet, SafeAreaView, FlatList, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Searchbar } from 'react-native-paper';
@@ -78,6 +78,12 @@ const options = [
 ];
 
 const Home = props => {
+
+  const handleCardPress = (item) => {
+    props.navigation.navigate('ModificarPesquisa');
+  };
+
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -94,7 +100,12 @@ const Home = props => {
                 horizontal
                 keyExtractor={item => item.id}
                 ItemSeparatorComponent={() => <View style={{ width: 20 }} />}
-                renderItem={({ item }) => <Card item={item} />}
+                renderItem={({ item }) =>
+                (
+                  <TouchableOpacity onPress={() => handleCardPress(item)}>
+                    <Card item={item} />
+                  </TouchableOpacity>
+                )}
               />
             </View>
             <Button

@@ -8,6 +8,7 @@ import Agradecimento from './src/Screens/Agradecimento';
 import Coleta from './src/Screens/Coleta';
 import NovaPesquisa from './src/Screens/NovaPesquisa';
 import Relatorio from './src/Screens/Relatorio';
+import ModificarPesquisa from './src/Screens/ModificarPesquisa';
 
 const Stack = createStackNavigator();
 
@@ -50,6 +51,14 @@ const App = () => {
           options={{
             headerShown: true,
             headerTitle: 'Nova pesquisa',
+          }}
+        />
+        <Stack.Screen
+          name="ModificarPesquisa"
+          component={ModificarPesquisa}
+          options={{
+            headerShown: true,
+            headerTitle: 'Modificar pesquisa',
           }}
         />
         <Stack.Screen
