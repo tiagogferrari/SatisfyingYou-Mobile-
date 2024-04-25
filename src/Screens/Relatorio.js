@@ -1,5 +1,4 @@
 import { Text, View, StyleSheet } from 'react-native';
-import { TextInput, Button } from 'react-native-paper';
 
 const styles = StyleSheet.create({
   view: {
@@ -13,7 +12,7 @@ const styles = StyleSheet.create({
 const CriarConta = () => {
   return (
     <View style={styles.view}>
-      
+      <Image source={require()} />
     </View>
   );
 };
