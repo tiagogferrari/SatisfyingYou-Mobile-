@@ -7,7 +7,7 @@ const Coleta = (props) => {
     const navigation = useNavigation();
 
     const handleClickIcone = () => {
-        navigation.navigate('Agradecimento'); // Navega para a tela de agradecimento ao clicar no ícone
+        props.navigation.navigate('Agradecimento'); // Navega para a tela de agradecimento ao clicar no ícone
     }
 
     return (

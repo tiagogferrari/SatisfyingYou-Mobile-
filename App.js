@@ -4,6 +4,8 @@ import Login from './src/Screens/Login';
 import CriarConta from './src/Screens/CriarConta';
 import RecuperarSenha from './src/Screens/RecuperarSenha';
 import Drawer from './src/Screens/Drawer';
+import Agradecimento from './src/Screens/Agradecimento';
+import Coleta from './src/Screens/Coleta';
 
 const Stack = createStackNavigator();
 
@@ -33,6 +35,8 @@ const App = () => {
           component={RecuperarSenha}
           options={{ headerShown: true }}
         />
+        <Stack.Screen name="Agradecimento" component={Agradecimento} />
+        <Stack.Screen name="Coleta" component={Coleta} />
       </Stack.Navigator>
     </NavigationContainer>
   );
