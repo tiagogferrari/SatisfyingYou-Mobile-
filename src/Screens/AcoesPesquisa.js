@@ -3,6 +3,12 @@ import { Card } from 'react-native-paper';
 import { colors } from '../constants/colors';
 
 const styles = StyleSheet.create({
+    view: {
+        backgroundColor: '#372775',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     cardContainer: {
         width: 150,
         flexDirection: 'row',
@@ -36,26 +42,28 @@ const AcoesPesquisa = props => {
     };
 
     return (
-        <View style={styles.cardContainer}>
-            <TouchableOpacity onPress={() => Modificar()}>
-                <Card>
-                    <Card.Cover source={{ uri: 'https://picsum.photos/700' }} style={styles.image} />
-                    <Card.Title title="Modificar" style={styles.title} />
-                </Card>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => ColetarDados()}>
-                <Card>
-                    <Card.Cover source={{ uri: 'https://picsum.photos/700' }} style={styles.image} />
-                    <Card.Title title="Coletar dados" style={styles.title} />
-                </Card>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => Relatorio()}>
-                <Card>
-                    <Card.Cover source={{ uri: 'https://picsum.photos/700' }} style={styles.image} />
-                    <Card.Title title="Relatório" style={styles.title} />
-                </Card>
-            </TouchableOpacity>
-        </View >
+        <View style={StyleSheet.view}>
+            <View style={styles.cardContainer}>
+                <TouchableOpacity onPress={() => Modificar()}>
+                    <Card>
+                        <Card.Cover source={{ uri: 'https://picsum.photos/700' }} style={styles.image} />
+                        <Card.Title title="Modificar" style={styles.title} />
+                    </Card>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => ColetarDados()}>
+                    <Card>
+                        <Card.Cover source={{ uri: 'https://picsum.photos/700' }} style={styles.image} />
+                        <Card.Title title="Coletar dados" style={styles.title} />
+                    </Card>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => Relatorio()}>
+                    <Card>
+                        <Card.Cover source={{ uri: 'https://picsum.photos/700' }} style={styles.image} />
+                        <Card.Title title="Relatório" style={styles.title} />
+                    </Card>
+                </TouchableOpacity>
+            </View >
+        </View>
     );
 };
 
