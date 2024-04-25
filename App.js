@@ -7,6 +7,7 @@ import Drawer from './src/Screens/Drawer';
 import Agradecimento from './src/Screens/Agradecimento';
 import Coleta from './src/Screens/Coleta';
 import NovaPesquisa from './src/Screens/NovaPesquisa';
+import Relatorio from './src/Screens/Relatorio';
 
 const Stack = createStackNavigator();
 
@@ -19,6 +20,7 @@ const App = () => {
           headerShown: false,
           headerStyle: { backgroundColor: '#2B1D62' },
           headerTintColor: 'white',
+          headerTitleStyle: { fontFamily: 'AveriaLibre-Regular' },
         }}>
         <Stack.Screen
           name="Login"
@@ -32,7 +34,6 @@ const App = () => {
           options={{
             headerShown: true,
             headerTitle: 'Nova Conta',
-            headerTitleStyle: { fontFamily: 'AveriaLibre-Regular' },
           }}
         />
         <Stack.Screen
@@ -41,7 +42,6 @@ const App = () => {
           options={{
             headerShown: true,
             headerTitle: 'Recuperação de senha',
-            headerTitleStyle: { fontFamily: 'AveriaLibre-Regular' },
           }}
         />
         <Stack.Screen
@@ -50,7 +50,14 @@ const App = () => {
           options={{
             headerShown: true,
             headerTitle: 'Nova pesquisa',
-            headerTitleStyle: { fontFamily: 'AveriaLibre-Regular' },
+          }}
+        />
+        <Stack.Screen
+          name="Relatorio"
+          component={Relatorio}
+          options={{
+            headerShown: true,
+            headerTitle: 'Relatório',
           }}
         />
         <Stack.Screen name="Agradecimento" component={Agradecimento} />
