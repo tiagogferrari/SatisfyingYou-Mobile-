@@ -10,8 +10,8 @@ const styles = StyleSheet.create({
     alignContent:  'center'
   },
   image: {
-    width: '62%',
-    height: '100%',
+    width: '65%',
+    height: '88%',
     marginVertical: '5%',
     marginHorizontal: '5%'
   },
