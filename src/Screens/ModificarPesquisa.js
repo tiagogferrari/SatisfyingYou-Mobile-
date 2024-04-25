@@ -1,35 +1,73 @@
-import { Text, View, StyleSheet } from "react-native"
+import { Text, View, ScrollView, StyleSheet, TouchableOpacity, Alert } from "react-native"
 import { TextInput, Button } from "react-native-paper";
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { CustomTextInput } from '../components/CustomTextInput';
+import AcoesPesquisa from "./AcoesPesquisa";
 
-const ModificarPesquisa = () => {
+const ModificarPesquisa = props => {
+    const Home = () => {
+        props.navigation.navigate('Home');
+    };
+    const AcoesPesquisa = () => {
+        props.navigation.navigate('AcoesPesquisa');
+    };
+    const showAlert = () =>
+        Alert.alert(
+            "",
+            "Tem certeza de apagar essa pesquisa?",
+            [
+            {
+                text: "Sim",
+                onPress: () => Home()
+            },
+            {
+                text: "Cancelar",
+                onPress: () => AcoesPesquisa(),
+                style: "cancel"
+            },
+            ],
+            { cancelable: false }
+        );
     return (
-        <View style={estilos.view}>
-            <Text style={estilos.label}>Nome</Text>
-            <TextInput style={estilos.TextInput} placeholder="Insira seu nome" />
-            <Text style={estilos.label}>Data</Text>
-            <TextInput
-                style={estilos.TextInput}
-                placeholder="Insira a data"
-                right={<TextInput.Icon icon={() => <Fontisto name="date" size={24} color="#989897" />} />}
-            />
-            <Text style={estilos.label}>Imagem</Text>
-            <View style={estilos.addImg}>
+        <ScrollView>
+        <View style={styles.view}>
+            
+            <View style={styles.form}>
+              <View style={styles.inputContainer}>
+                <Text style={styles.label}>Nome</Text>
+                <CustomTextInput placeholder="Insira seu nome" />
+              </View>
+              <View style={styles.inputContainer}>
+                <Text style={styles.label}>Data</Text>
+                <TextInput
+                    style={styles.TextInput}
+                    placeholder="Insira a data"
+                    right={<TextInput.Icon icon={() => <Fontisto name="date" size={24} color="#989897" />} />}
+                />
+              </View>
+              <Text style={styles.label}>Imagem</Text>
+            <View style={styles.addImg}>
                 <Icon name="party-popper" size={45} color="#c70eb3" />
             </View>
-            <View style={estilos.change}>
-                <Button labelStyle={estilos.BtnText} style={estilos.BtnC}>SALVAR</Button>
+            </View>
+            <View style={styles.change}>
+                <Button labelStyle={styles.BtnText} style={styles.BtnC} onPress={() => Home()}>SALVAR</Button>
+                <TouchableOpacity onPress={() => showAlert()} >
                 <Icon name="trash-can-outline" size={35} color="white" marginLeft={50} marginTop={-5}/>
+                </TouchableOpacity>
             </View>
             <View>
-            <Text style={estilos.excluir}>Apagar</Text>
+            <Text style={styles.excluir}>Apagar</Text>
             </View>
         </View>
+        </ScrollView>
     )
 }
 
-const estilos = StyleSheet.create({
+
+
+const styles = StyleSheet.create({
     view: {
         backgroundColor: '#372775',
         flex: 1,
@@ -40,16 +78,19 @@ const estilos = StyleSheet.create({
         flexDirection: "row"
     },
     label: {
-        alignSelf: 'flex-start',
-        marginLeft: '17%',
-        marginBottom: 5,
-        color: 'white',
-        fontFamily: 'AveriaLibre-Regular'
+      alignSelf: 'flex-start',
+      color: 'white',
+      fontFamily: 'AveriaLibre-Regular',
+      fontSize: 20,
     },
     TextInput: {
-        marginBottom: 15,
-        width: 500,
+        width: '100%',
         height: 40,
+        fontSize: 16,
+        paddingHorizontal: 10,
+        fontFamily: 'AveriaLibre-Regular',
+        color: 'blue',
+        backgroundColor: 'white',
     },
     BtnC: {
         backgroundColor: "#37BD6D",
@@ -65,7 +106,6 @@ const estilos = StyleSheet.create({
     },
     addImg: {
         alignSelf: 'flex-start',
-        marginLeft: '17%',
         width: 250,
         height: 60,
         backgroundColor: 'white',
@@ -78,7 +118,21 @@ const estilos = StyleSheet.create({
         fontFamily: 'AveriaLibre-Regular',
         color: 'white',
         marginTop: -19
-    }
+    },
+    form: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 500,
+        gap: 20,
+      },
+      inputContainer: {
+        display: 'flex',
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+        width: '100%',
+        gap: 2,
+      },
 })
 
 export default ModificarPesquisa
