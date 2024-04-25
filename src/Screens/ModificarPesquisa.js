@@ -74,7 +74,7 @@ const estilos = StyleSheet.create({
         alignItems: "center",
     },
     excluir: {
-        marginLeft: 650,
+        marginLeft: 640,
         fontFamily: 'AveriaLibre-Regular',
         color: 'white',
         marginTop: -19
