@@ -1,5 +1,5 @@
-import { Text, View, StyleSheet } from "react-native"
-import { TextInput, Button } from "react-native-paper";
+import { Text, View, StyleSheet, Image } from "react-native"
+import { TextInput, Button, Icon } from "react-native-paper";
 
 const NovaPesquisa = () => {
     return (
@@ -7,7 +7,11 @@ const NovaPesquisa = () => {
             <Text style={estilos.label}>Nome</Text>
             <TextInput style={estilos.TextInput} placeholder="Insira seu nome" />
             <Text style={estilos.label}>Data</Text>
-            <TextInput style={estilos.TextInput} placeholder="Insira data" />
+            <TextInput
+                style={estilos.TextInput}
+                placeholder="Insira data"
+                right={<TextInput.Icon icon="calendar"/>}
+            />
             <Text style={estilos.label}>Imagem</Text>
             <Text>?</Text>
             <Button labelStyle={estilos.BtnText} style={estilos.BtnC}> CADASTRAR </Button>
