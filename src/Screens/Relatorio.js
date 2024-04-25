@@ -10,10 +10,8 @@ const styles = StyleSheet.create({
     alignContent:  'center'
   },
   image: {
-    width: '65%',
-    height: '88%',
-    marginVertical: '5%',
-    marginHorizontal: '5%'
+    height: 260,
+    width: 450,
   },
 });
 
