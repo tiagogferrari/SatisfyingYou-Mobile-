@@ -10,6 +10,7 @@ import NovaPesquisa from './src/Screens/NovaPesquisa';
 import Relatorio from './src/Screens/Relatorio';
 import ModificarPesquisa from './src/Screens/ModificarPesquisa';
 import AcoesPesquisa from './src/Screens/AcoesPesquisa';
+import { colors } from './src/constants/colors';
 
 const Stack = createStackNavigator();
 
@@ -21,8 +22,11 @@ const App = () => {
         screenOptions={{
           headerShown: false,
           headerStyle: { backgroundColor: '#2B1D62' },
-          headerTintColor: 'white',
-          headerTitleStyle: { fontFamily: 'AveriaLibre-Regular' },
+          headerTintColor: colors.purple,
+          headerTitleStyle: {
+            fontFamily: 'AveriaLibre-Regular',
+            color: 'white',
+          },
         }}>
         <Stack.Screen
           name="Login"

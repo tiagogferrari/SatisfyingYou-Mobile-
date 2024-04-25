@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { CustomTextInput } from '../components/CustomTextInput';
 import { colors } from '../constants/colors';
+import { validateEmail } from '../utils/validate-email'
 
 const styles = StyleSheet.create({
   container: {
@@ -34,18 +35,18 @@ const styles = StyleSheet.create({
     fontFamily: 'AveriaLibre-Regular',
     fontSize: 20,
   },
-  titulo: {
-    color: 'white',
-    fontSize: 40,
-    textAlign: 'center',
-    fontFamily: 'AveriaLibre-Regular',
-  },
   form: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
     gap: 20,
+  },
+  titulo: {
+    color: 'white',
+    fontSize: 40,
+    textAlign: 'center',
+    fontFamily: 'AveriaLibre-Regular',
   },
   inputContainer: {
     display: 'flex',
@@ -61,11 +62,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 5,
   },
-  button: {
-    width: '100%',
-    borderRadius: 0,
-    padding: 0,
-  },
   loginButton: {
     backgroundColor: colors.green,
   },
@@ -74,6 +70,11 @@ const styles = StyleSheet.create({
   },
   forgotPasswordButton: {
     backgroundColor: colors.lightBlue,
+  },
+  button: {
+    width: '100%',
+    borderRadius: 0,
+    padding: 0,
   },
   buttonText: {
     color: 'white',
@@ -99,13 +100,6 @@ const Login = props => {
   const goToRecuperar = () => {
     props.navigation.navigate('RecuperarSenha');
   };
-
-  const validateEmail = email =>
-    email
-      .toLowerCase()
-      .match(
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-      );
 
   const handleSubmit = () => {
     if (!email) {

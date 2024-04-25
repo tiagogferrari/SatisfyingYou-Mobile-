@@ -15,5 +15,5 @@ const styles = StyleSheet.create({
 });
 
 export const CustomTextInput = props => {
-  return <TextInput {...props} style={styles.TextInput} />;
+  return <TextInput {...props} style={styles.TextInput} en/>;
 };

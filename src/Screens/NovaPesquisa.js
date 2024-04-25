@@ -1,72 +1,147 @@
-import { Text, View, StyleSheet, Image } from "react-native"
-import { TextInput, Button, } from "react-native-paper";
+import { Text, View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import { TextInput, Button } from 'react-native-paper';
 import Fontisto from 'react-native-vector-icons/Fontisto';
+import { CustomTextInput } from '../components/CustomTextInput';
+import { colors } from '../constants/colors';
+import { useState } from 'react';
 
-const NovaPesquisa = () => {
-    return (
-        <View style={estilos.view}>
-            <Text style={estilos.label}>Nome</Text>
-            <TextInput style={estilos.TextInput} placeholder="Insira seu nome" />
-            <Text style={estilos.label}>Data</Text>
-            <TextInput
-                style={estilos.TextInput}
-                placeholder="Insira a data"
-                right={<TextInput.Icon icon={() => <Fontisto name="date" size={24} color="#989897" />} />}
-            />
-            <Text style={estilos.label}>Imagem</Text>
-            <View style={estilos.addImg}>
-                <Text style={estilos.texto}>Câmera/Galeria de imagens</Text>
-            </View>
-            <Button labelStyle={estilos.BtnText} style={estilos.BtnC}> CADASTRAR </Button>
-        </View>
-    )
-}
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    backgroundColor: '#372775',
+  },
+  view: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 40,
+    paddingVertical: 20,
+  },
+  container: {
+    width: 500,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  label: {
+    alignSelf: 'flex-start',
+    color: 'white',
+    fontFamily: 'AveriaLibre-Regular',
+    fontSize: 20,
+  },
+  inputContainer: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    width: '100%',
+    gap: 2,
+  },
+  textInput: {
+    width: '100%',
+    height: 40,
+    fontSize: 16,
+    paddingHorizontal: 10,
+    fontFamily: 'AveriaLibre-Regular',
+    color: colors.blue,
+    backgroundColor: 'white',
+  },
+  button: {
+    backgroundColor: '#37BD6D',
+    borderRadius: 0,
+    marginBottom: 10,
+    width: 500,
+  },
+  buttonLabel: {
+    color: 'white',
+    fontFamily: 'AveriaLibre-Regular',
+    fontSize: 20,
+  },
+  addImg: {
+    justifyContent: 'center',
+    width: '50%',
+    height: 70,
+    backgroundColor: 'white',
+  },
+  texto: {
+    color: colors.lightGray,
+    fontFamily: 'AveriaLibre-Regular',
+    fontSize: 15,
+    textAlign: 'center',
+  },
+  errorMessage: {
+    color: colors.red,
+    fontFamily: 'AveriaLibre-Regular',
+    fontSize: 16,
+  },
+});
 
-const estilos = StyleSheet.create({
-    view: {
-        backgroundColor: '#372775',
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    label: {
-        alignSelf: 'flex-start',
-        marginLeft: '17%',
-        marginBottom: 5,
-        color: 'white',
-        fontFamily: 'AveriaLibre-Regular'
-    },
-    TextInput: {
-        marginBottom: 15,
-        width: 500,
-        height: 40,
-    },
-    BtnC: {
-        backgroundColor: "#37BD6D",
-        borderRadius: 0,
-        marginBottom: 10,
-        width: 500,
-    },
-    BtnText: {
-        color: 'white',
-        fontFamily: 'AveriaLibre-Regular',
-        fontSize: 20
-    },
-    addImg: {
-        alignSelf: 'flex-start',
-        marginLeft: '17%',
-        width: 250,
-        height: 60,
-        backgroundColor: 'white',
-        marginBottom: 20,
-    },
-    texto: {
-        color: '#939393',
-        fontFamily: 'AveriaLibre-Regular',
-        fontSize: 15,
-        textAlign: 'center',
-        paddingTop: 20
+const NovaPesquisa = props => {
+  const [data, setData] = useState('');
+  const [nome, setNome] = useState('');
+  const [dataError, setDataError] = useState('');
+  const [nomeError, setNomeError] = useState('');
+
+  const handleSubmit = () => {
+    if (!nome) {
+      return setNomeError('Campo de nome obrigatírio.');
+    } else {
+      setNomeError('');
     }
-})
 
-export default NovaPesquisa
+    if (!data) {
+      return setDataError('Campo de data obrigatírio.');
+    } else {
+      setDataError('');
+    }
+
+    props.navigation.navigate('Home');
+  };
+
+  return (
+    <SafeAreaView style={styles.screen}>
+      <ScrollView>
+        <View style={styles.view}>
+          <View style={styles.container}>
+            <View style={styles.inputContainer}>
+              <Text style={styles.label}>Nome</Text>
+              <CustomTextInput
+                placeholder="Insira seu nome"
+                onChangeText={setNome}
+              />
+              <Text style={styles.errorMessage}>{nomeError}</Text>
+            </View>
+            <View style={styles.inputContainer}>
+              <Text style={styles.label}>Data</Text>
+              <TextInput
+                style={styles.textInput}
+                placeholder="Insira a data"
+                onChangeText={setData}
+                right={
+                  <TextInput.Icon
+                    icon={() => (
+                      <Fontisto name="date" size={24} color="#989897" />
+                    )}
+                  />
+                }
+              />
+              <Text style={styles.errorMessage}>{dataError}</Text>
+            </View>
+            <View style={styles.inputContainer}>
+              <Text style={styles.label}>Imagem</Text>
+              <View style={styles.addImg}>
+                <Text style={styles.texto}>Câmera/Galeria de imagens</Text>
+              </View>
+            </View>
+          </View>
+          <Button
+            labelStyle={styles.buttonLabel}
+            style={styles.button}
+            onPress={handleSubmit}>
+            CADASTRAR
+          </Button>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
+
+export default NovaPesquisa;
