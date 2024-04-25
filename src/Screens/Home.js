@@ -79,7 +79,7 @@ const options = [
 
 const Home = props => {
 
-  const handleCardPress = (item) => {
+  const handleCardPress = () => {
     props.navigation.navigate('AcoesPesquisa');
   };
 
@@ -102,7 +102,7 @@ const Home = props => {
                 ItemSeparatorComponent={() => <View style={{ width: 20 }} />}
                 renderItem={({ item }) =>
                 (
-                  <TouchableOpacity onPress={() => handleCardPress(item)}>
+                  <TouchableOpacity onPress={handleCardPress}>
                     <Card item={item} />
                   </TouchableOpacity>
                 )}
