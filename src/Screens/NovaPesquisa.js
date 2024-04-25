@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet, Image } from "react-native"
+import { Text, View, StyleSheet, ScrollView, Image } from "react-native"
 import { TextInput, Button, } from "react-native-paper";
 import Fontisto from 'react-native-vector-icons/Fontisto';
 
