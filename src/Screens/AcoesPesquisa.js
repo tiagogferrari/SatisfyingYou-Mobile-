@@ -1,6 +1,9 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Card } from 'react-native-paper';
 import { colors } from '../constants/colors';
+import coletar from '../../assets/img/coletardados.png';
+import modificar from '../../assets/img/modificar.png';
+import relatorio from '../../assets/img/relatorio.png';
 
 const styles = StyleSheet.create({
     view: {
@@ -48,19 +51,19 @@ const AcoesPesquisa = props => {
             <View style={styles.cardContainer}>
                 <TouchableOpacity onPress={() => Modificar()} style={styles.card}>
                     <Card>
-                        <Card.Cover source={{ uri: 'https://picsum.photos/700' }} style={styles.image} />
+                        <Card.Cover source={modificar} style={styles.image} />
                         <Card.Title title="Modificar" style={styles.title} />
                     </Card>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => ColetarDados()} style={styles.card}>
                     <Card>
-                        <Card.Cover source={{ uri: 'https://picsum.photos/700' }} style={styles.image} />
+                        <Card.Cover source={coletar} style={styles.image} />
                         <Card.Title title="Coletar dados" style={styles.title} />
                     </Card>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => Relatorio()} style={styles.card}>
                     <Card>
-                        <Card.Cover source={{ uri: 'https://picsum.photos/700' }} style={styles.image} />
+                        <Card.Cover source={relatorio} style={styles.image} />
                         <Card.Title title="Relatório" style={styles.title} />
                     </Card>
                 </TouchableOpacity>
