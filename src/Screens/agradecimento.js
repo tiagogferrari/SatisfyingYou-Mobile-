@@ -7,7 +7,8 @@ const Agradecimento = (props) => {
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            navigation.navigate('AcoesPesquisa'); // Navega para a tela de ações de pesquisa após 3 segundos
+            props.navigation.navigate('Home');
+            //navigation.navigate('AcoesPesquisa'); // Navega para a tela de ações de pesquisa após 3 segundos
         }, 3000);
 
         return () => clearTimeout(timer);
