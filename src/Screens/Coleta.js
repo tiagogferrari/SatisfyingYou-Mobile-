@@ -17,23 +17,23 @@ const Coleta = (props) => {
             
             <View style={estilos.container}>
                 <TouchableOpacity style={estilos.iconeContainer} onPress={handleClickIcone}>
-                    <Icon name="sentiment-very-dissatisfied" size={100} color="#8B0000" />
+                    <Icon name="sentiment-very-dissatisfied" size={100} color="#d31818" />
                     <Text style={estilos.label}>Péssimo</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={estilos.iconeContainer} onPress={handleClickIcone}>
-                    <Icon name="sentiment-dissatisfied" size={100} color="red" />
+                    <Icon name="sentiment-dissatisfied" size={100} color="#f43917" />
                     <Text style={estilos.label}>Ruim</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={estilos.iconeContainer} onPress={handleClickIcone}>
-                    <Icon name="sentiment-neutral" size={100} color="#FFA07A" />
+                    <Icon name="sentiment-neutral" size={100} color="#ffc534" />
                     <Text style={estilos.label}>Neutro</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={estilos.iconeContainer} onPress={handleClickIcone}>
-                    <Icon name="sentiment-satisfied" size={100} color="#98FB98" />
+                    <Icon name="sentiment-satisfied" size={100} color="#39bc6f" />
                     <Text style={estilos.label}>Bom</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={estilos.iconeContainer} onPress={handleClickIcone}>
-                    <Icon name="sentiment-very-satisfied" size={100} color="darkgreen" />
+                    <Icon name="sentiment-very-satisfied" size={100} color="#24bc21" />
                     <Text style={estilos.label}>Excelente</Text>
                 </TouchableOpacity>
             </View>
@@ -43,8 +43,8 @@ const Coleta = (props) => {
 
 const estilos = StyleSheet.create({
     view: {
-        backgroundColor: '#372775',
         flex: 1,
+        backgroundColor: '#372775',
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -56,11 +56,11 @@ const estilos = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-around',
         flexWrap: 'wrap',
-        marginTop: 20, // Espaçamento entre o cabeçalho e os ícones
+        marginTop: 50, // Espaçamento entre o cabeçalho e os ícones
     },
     iconeContainer: {
         alignItems: 'center',
-        margin: 30,
+        margin: 10,
     },
     label: {
         color: 'white',
