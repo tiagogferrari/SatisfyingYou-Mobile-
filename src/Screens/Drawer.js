@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import Home from './Home';
 import { CustomDrawer } from '../components/CustomDrawer';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { colors } from '../constants/colors';
 
 const styles = StyleSheet.create({
   iconContainer: {
@@ -18,8 +19,8 @@ const Drawer = () => {
       drawerContent={props => <CustomDrawer {...props} />}
       title="teste"
       screenOptions={{
-        drawerActiveTintColor: '#2B1D62',
-        headerStyle: { backgroundColor: '#2B1D62' },
+        drawerActiveTintColor: colors.darkPurple,
+        headerStyle: { backgroundColor: colors.darkPurple },
         drawerLabelStyle: {
           color: 'white',
           fontFamily: 'AveriaLibre-Regular',
@@ -30,6 +31,8 @@ const Drawer = () => {
         name="Pesquisas"
         component={Home}
         options={{
+          headerTintColor: 'white',
+          headerTitle: '',
           drawerIcon: () => (
             <View style={styles.iconContainer}>
               <MaterialCommunityIcons
