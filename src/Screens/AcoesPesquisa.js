@@ -10,7 +10,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     cardContainer: {
-        width: 150,
         flexDirection: 'row',
 
     },
@@ -22,6 +21,9 @@ const styles = StyleSheet.create({
         fontSize: 26,
         fontFamily: 'AveriaLibre-Regular',
         color: colors.blue,
+    },
+    card: {
+        margin: 10,
     },
 
 });
@@ -42,21 +44,21 @@ const AcoesPesquisa = props => {
     };
 
     return (
-        <View style={StyleSheet.view}>
+        <View style={styles.view}>
             <View style={styles.cardContainer}>
-                <TouchableOpacity onPress={() => Modificar()}>
+                <TouchableOpacity onPress={() => Modificar()} style={styles.card}>
                     <Card>
                         <Card.Cover source={{ uri: 'https://picsum.photos/700' }} style={styles.image} />
                         <Card.Title title="Modificar" style={styles.title} />
                     </Card>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => ColetarDados()}>
+                <TouchableOpacity onPress={() => ColetarDados()} style={styles.card}>
                     <Card>
                         <Card.Cover source={{ uri: 'https://picsum.photos/700' }} style={styles.image} />
                         <Card.Title title="Coletar dados" style={styles.title} />
                     </Card>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => Relatorio()}>
+                <TouchableOpacity onPress={() => Relatorio()} style={styles.card}>
                     <Card>
                         <Card.Cover source={{ uri: 'https://picsum.photos/700' }} style={styles.image} />
                         <Card.Title title="Relatório" style={styles.title} />
@@ -67,8 +69,5 @@ const AcoesPesquisa = props => {
     );
 };
 
-const estilos = StyleSheet.create({
-
-})
 
 export default AcoesPesquisa;
