@@ -1,15 +1,9 @@
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  Button,
-  SafeAreaView,
-  FlatList,
-  Image,
-  Text,
-} from 'react-native';
+import { View, StyleSheet, SafeAreaView, FlatList } from 'react-native';
+import { Button } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
-import { Searchbar, Card } from 'react-native-paper';
+import { Searchbar } from 'react-native-paper';
+import { Card } from '../components/Card';
 import { colors } from '../constants/colors';
 
 const styles = StyleSheet.create({
@@ -34,23 +28,6 @@ const styles = StyleSheet.create({
   cardContainer: {
     width: '100%',
   },
-  card: {
-    width: 300,
-    height: 300,
-    borderRadius: 20,
-    backgroundColor: 'white',
-  },
-  title: {
-    fontSize: 24,
-    fontFamily: 'AveriaLibre-Regular',
-    color: colors.blue,
-    textAlign: 'center',
-  },
-  date: {
-    fontFamily: 'AveriaLibre-Regular',
-    color: colors.lightBlue,
-    textAlign: 'center',
-  },
   searchBar: {
     width: '100%',
     borderRadius: 0,
@@ -60,9 +37,47 @@ const styles = StyleSheet.create({
     color: colors.blue,
     backgroundColor: 'white',
   },
+  newSearchButton: {
+    width: '100%',
+    borderRadius: 0,
+    padding: 0,
+    backgroundColor: colors.green,
+  },
+  buttonText: {
+    color: 'white',
+    fontFamily: 'AveriaLibre-Regular',
+    fontSize: 20,
+  },
 });
 
-const Home = () => {
+const options = [
+  {
+    id: 1,
+    title: 'CARD TITLE',
+    subtitle: '20/04/2024',
+    image: 'https://picsum.photos/700',
+  },
+  {
+    id: 2,
+    title: 'CARD TITLE',
+    subtitle: '20/04/2024',
+    image: 'https://picsum.photos/700',
+  },
+  {
+    id: 3,
+    title: 'CARD TITLE',
+    subtitle: '20/04/2024',
+    image: 'https://picsum.photos/700',
+  },
+  {
+    id: 4,
+    title: 'CARD TITLE',
+    subtitle: '20/04/2024',
+    image: 'https://picsum.photos/700',
+  },
+];
+
+const Home = props => {
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -75,48 +90,21 @@ const Home = () => {
             />
             <View style={styles.cardContainer}>
               <FlatList
-                data={[
-                  {
-                    id: 1,
-                    title: 'Card Title',
-                    subtitle: '20/04/2024',
-                    image: 'https://picsum.photos/700',
-                  },
-                  {
-                    id: 2,
-                    title: 'Card Title',
-                    subtitle: '20/04/2024',
-                    image: 'https://picsum.photos/700',
-                  },
-                  {
-                    id: 3,
-                    title: 'Card Title',
-                    subtitle: '20/04/2024',
-                    image: 'https://picsum.photos/700',
-                  },
-                  {
-                    id: 4,
-                    title: 'Card Title',
-                    subtitle: '20/04/2024',
-                    image: 'https://picsum.photos/700',
-                  },
-                ]}
-                spa
+                data={options}
                 horizontal
                 keyExtractor={item => item.id}
                 ItemSeparatorComponent={() => <View style={{ width: 20 }} />}
-                renderItem={({ item }) => (
-                  <View style={styles.card}>
-                    <Image source={{ uri: item.image }} />
-                    <Text style={styles.title}>{item.title}</Text>
-                    <Text style={styles.date}>{item.subtitle}</Text>
-                  </View>
-                )}
+                renderItem={({ item }) => <Card item={item} />}
               />
             </View>
-            <View>
-              <Button title="Nova Pesquisa" onPress={() => {}} />
-            </View>
+            <Button
+              onPress={() => {
+                props.navigation.navigate('NovaPesquisa');
+              }}
+              style={styles.newSearchButton}
+              labelStyle={styles.buttonText}>
+              NOVA PESQUISA
+            </Button>
           </View>
         </View>
       </ScrollView>

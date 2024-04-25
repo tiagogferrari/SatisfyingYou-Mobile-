@@ -108,17 +108,17 @@ const Login = props => {
       );
 
   const handleSubmit = () => {
-    // if (!email) {
-    //   return setError('Campo de e-mail obrigatírio.');
-    // }
+    if (!email) {
+      return setError('Campo de e-mail obrigatírio.');
+    }
 
-    // if (!password) {
-    //   return setError('Campo de senha obrigatírio.');
-    // }
+    if (!password) {
+      return setError('Campo de senha obrigatírio.');
+    }
 
-    // if (!validateEmail(email)) {
-    //   return setError('E-mail inválido.');
-    // }
+    if (!validateEmail(email)) {
+      return setError('E-mail inválido.');
+    }
 
     props.navigation.navigate('Home');
   };
