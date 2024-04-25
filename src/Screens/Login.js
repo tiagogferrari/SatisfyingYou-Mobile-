@@ -1,102 +1,183 @@
-import { View, Text, StyleSheet, } from "react-native";
-import { TextInput, Button } from "react-native-paper";
-import { useState } from "react";
-import Icon from 'react-native-vector-icons/MaterialIcons'
+import { View, Text, StyleSheet, ScrollView, SafeAreaView } from 'react-native';
+import { Button } from 'react-native-paper';
+import { useState } from 'react';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import { CustomTextInput } from '../components/CustomTextInput';
+import { colors } from '../constants/colors';
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.purple,
+  },
+  view: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 10,
+  },
+  content: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 500,
+    gap: 40,
+  },
+  header: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 40,
+  },
+  label: {
+    alignSelf: 'flex-start',
+    color: 'white',
+    fontFamily: 'AveriaLibre-Regular',
+    fontSize: 20,
+  },
+  titulo: {
+    color: 'white',
+    fontSize: 40,
+    textAlign: 'center',
+    fontFamily: 'AveriaLibre-Regular',
+  },
+  form: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    gap: 20,
+  },
+  inputContainer: {
+    display: 'flex',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    width: '100%',
+    gap: 2,
+  },
+  buttonsContainer: {
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 5,
+  },
+  button: {
+    width: '100%',
+    borderRadius: 0,
+    padding: 0,
+  },
+  loginButton: {
+    backgroundColor: colors.green,
+  },
+  createAccountButton: {
+    backgroundColor: colors.blue,
+  },
+  forgotPasswordButton: {
+    backgroundColor: colors.lightBlue,
+  },
+  buttonText: {
+    color: 'white',
+    fontFamily: 'AveriaLibre-Regular',
+    fontSize: 20,
+  },
+  errorMessage: {
+    color: colors.red,
+    fontFamily: 'AveriaLibre-Regular',
+    fontSize: 16,
+  },
+});
 
-const Login = (props) => {
+const Login = props => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+  const goToCriar = () => {
+    props.navigation.navigate('CriarConta');
+  };
 
-    const goToDrawer = () => {
-        props.navigation.navigate('Drawer')
+  const goToRecuperar = () => {
+    props.navigation.navigate('RecuperarSenha');
+  };
 
-    }
+  const validateEmail = email =>
+    email
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+      );
 
-    const goToCriar = () => {
-        props.navigation.navigate('CriarConta')
-    }
+  const handleSubmit = () => {
+    // if (!email) {
+    //   return setError('Campo de e-mail obrigatírio.');
+    // }
 
-    const goToRecuperar = () => {
-        props.navigation.navigate('RecuperarSenha')
-    }
+    // if (!password) {
+    //   return setError('Campo de senha obrigatírio.');
+    // }
 
-    return (
-        <View style={estilos.view}>
-            <View style={estilos.header}>
-                <Text style={estilos.titulo}>Satisfying.you</Text>
-                <Icon name="sentiment-satisfied-alt" size={50} color="white" />
+    // if (!validateEmail(email)) {
+    //   return setError('E-mail inválido.');
+    // }
+
+    props.navigation.navigate('Home');
+  };
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <ScrollView>
+        <View style={styles.view}>
+          <View style={styles.content}>
+            <View style={styles.header}>
+              <Text style={styles.titulo}>Satisfying.you</Text>
+              <Icon name="sentiment-satisfied-alt" size={75} color="white" />
             </View>
-            <View style={estilos.vInputs}>
-                <Text style={estilos.label}>E-mail</Text>
-                <TextInput style={estilos.TextInput} value={email} onChangeText={setEmail} placeholder="Insira seu e-mail" />
-                <Text style={estilos.label}>Senha</Text>
-                <TextInput style={estilos.TextInput} value={password} onChangeText={setPassword} placeholder="Insira sua senha" />
+            <View style={styles.form}>
+              <View style={styles.inputContainer}>
+                <Text style={styles.label}>E-mail</Text>
+                <CustomTextInput
+                  label="E-mail"
+                  value={email}
+                  onChangeText={setEmail}
+                  placeholder="Insira seu e-mail"
+                />
+              </View>
+              <View style={styles.inputContainer}>
+                <Text style={styles.label}>Senha</Text>
+                <CustomTextInput
+                  value={password}
+                  onChangeText={setPassword}
+                  placeholder="Insira sua senha"
+                  secureTextEntry={true}
+                />
+                <Text style={styles.errorMessage}>{error}</Text>
+              </View>
+              <Button
+                labelStyle={styles.buttonText}
+                style={[styles.button, styles.loginButton]}
+                onPress={handleSubmit}>
+                Entrar
+              </Button>
             </View>
-            <View style={estilos.vBotoes}>
-                <Button labelStyle={estilos.BtnText} style={estilos.BtnE} onPress={goToDrawer}> Entrar </Button>
-                <Button labelStyle={estilos.BtnText} style={estilos.BtnC} onPress={goToCriar}>Criar minha conta</Button>
-                <Button labelStyle={estilos.BtnText} style={estilos.BtnS} onPress={goToRecuperar}>Esqueci minha senha</Button>
+            <View style={styles.buttonsContainer}>
+              <Button
+                labelStyle={styles.buttonText}
+                style={[styles.button, styles.createAccountButton]}
+                onPress={goToCriar}>
+                Criar minha conta
+              </Button>
+              <Button
+                labelStyle={styles.buttonText}
+                style={[styles.button, styles.forgotPasswordButton]}
+                onPress={goToRecuperar}>
+                Esqueci minha senha
+              </Button>
             </View>
-
+          </View>
         </View>
-    )
-}
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
 
-const estilos = StyleSheet.create({
-    view: {
-        backgroundColor: '#372775',
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    header: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    label: {
-        alignSelf: 'flex-start',
-        marginBottom: 5,
-        color: 'white',
-        fontFamily: 'AveriaLibre-Regular'
-    },
-    titulo: {
-        color: 'white',
-        fontSize: 40,
-        textAlign: 'center',
-        marginRight: 20,
-        fontFamily: 'AveriaLibre-Regular'
-    },
-    TextInput: {
-        marginBottom: 20,
-        width: 500,
-        height: 40,
-        fontFamily: 'AveriaLibre-Regular'
-    },
-    BtnE: {
-        backgroundColor: "#37BD6D",
-        borderRadius: 0,
-        marginBottom: 10,
-        width: 500,
-    },
-    BtnC: {
-        backgroundColor: "#419ED7",
-        borderRadius: 0,
-        marginBottom: 10,
-        width: 500,
-    },
-    BtnS: {
-        backgroundColor: "#B0CCDE",
-        borderRadius: 0,
-        marginBottom: 10,
-        width: 500,
-    },
-    BtnText: {
-        color: 'white',
-        fontFamily: 'AveriaLibre-Regular',
-        fontSize: 20
-    },
-})
-
-export default Login
+export default Login;
