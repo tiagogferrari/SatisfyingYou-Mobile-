@@ -80,7 +80,7 @@ const options = [
 const Home = props => {
 
   const handleCardPress = (item) => {
-    props.navigation.navigate('ModificarPesquisa');
+    props.navigation.navigate('AcoesPesquisa');
   };
 
 

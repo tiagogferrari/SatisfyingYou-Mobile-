@@ -9,6 +9,7 @@ import Coleta from './src/Screens/Coleta';
 import NovaPesquisa from './src/Screens/NovaPesquisa';
 import Relatorio from './src/Screens/Relatorio';
 import ModificarPesquisa from './src/Screens/ModificarPesquisa';
+import AcoesPesquisa from './src/Screens/AcoesPesquisa';
 
 const Stack = createStackNavigator();
 
@@ -59,6 +60,14 @@ const App = () => {
           options={{
             headerShown: true,
             headerTitle: 'Modificar pesquisa',
+          }}
+        />
+        <Stack.Screen
+          name="AcoesPesquisa"
+          component={AcoesPesquisa}
+          options={{
+            headerShown: true,
+            headerTitle: 'Ações Pesquisa',
           }}
         />
         <Stack.Screen
