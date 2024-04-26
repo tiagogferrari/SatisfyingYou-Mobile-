@@ -204,13 +204,13 @@ const ModificarPesquisa = props => {
               <Button
                 style={styles.buttonRed}
                 labelStyle={styles.buttonLabel}
-                onPress={AcoesPesquisa}>
+                onPress={Home}>
                 SIM
               </Button>
               <Button
                 style={styles.buttonBlue}
                 labelStyle={styles.buttonLabel}
-                onPress={toggleModal}>
+                onPress={AcoesPesquisa}>
                 CANCELAR
               </Button>
             </View>
