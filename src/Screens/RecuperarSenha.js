@@ -4,6 +4,8 @@ import { Button } from 'react-native-paper';
 import { CustomTextInput } from '../components/CustomTextInput';
 import { colors } from '../constants/colors';
 import { validateEmail } from '../utils/validate-email';
+import { auth_mod } from '../firebase/config';
+import { sendPasswordResetEmail } from 'firebase/auth';
 
 const styles = StyleSheet.create({
   view: {
@@ -48,6 +50,11 @@ const styles = StyleSheet.create({
     fontFamily: 'AveriaLibre-Regular',
     fontSize: 16,
   },
+  successMessage: {
+    color: colors.green,
+    fontFamily: 'AveriaLibre-Regular',
+    fontSize: 16,
+  },
   label: {
     alignSelf: 'flex-start',
     color: 'white',
@@ -59,13 +66,24 @@ const styles = StyleSheet.create({
 const RecuperarSenha = props => {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
 
   const handleSubmit = () => {
     if (!validateEmail(email)) {
       return setError('E-mail inválido.');
     }
 
-    props.navigation.navigate('Login');
+    sendPasswordResetEmail(auth_mod, email)
+      .then(() => {
+        //console.log("email de redefinição enviado!")
+        setMessage('Email de redefinição enviado');
+        setTimeout(() => {
+          props.navigation.navigate('Login');
+        }, 3000);
+      })
+      .catch((error) => {
+        console.log("falha ao enviar email de redefinição: " + JSON.stringify(error))
+      })
   };
 
   return (
@@ -79,6 +97,7 @@ const RecuperarSenha = props => {
         />
         <Text style={styles.errorMessage}>{error}</Text>
       </View>
+      {message ? <Text style={styles.successMessage}>{message}</Text> : null}
       <Button
         labelStyle={styles.BtnText}
         style={styles.BtnC}
