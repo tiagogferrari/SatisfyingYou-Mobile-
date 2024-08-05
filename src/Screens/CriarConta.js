@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { CustomTextInput } from '../components/CustomTextInput';
 import { validateEmail } from '../utils/validate-email';
 import { colors } from '../constants/colors';
+import { auth_mod } from '../firebase/config';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 const styles = StyleSheet.create({
   container: {
@@ -97,7 +99,17 @@ const CriarConta = props => {
       return setConfirmPasswordError('As senhas não conferem.');
     }
 
-    props.navigation.navigate('Home');
+    createUserWithEmailAndPassword(auth_mod, email, password)
+      .then((userCredential) => {
+        //console.log("Usuário criado com sucesso: " + JSON.stringify(userCredential));
+        props.navigation.navigate('Home');
+      })
+      .catch((error) => {
+        console.log("Erro ao cadastrar: " + JSON.stringify(error))
+      })
+
+
+
   };
 
   return (

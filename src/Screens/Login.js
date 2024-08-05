@@ -4,7 +4,9 @@ import { useState } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { CustomTextInput } from '../components/CustomTextInput';
 import { colors } from '../constants/colors';
-import { validateEmail } from '../utils/validate-email'
+import { validateEmail } from '../utils/validate-email';
+import { auth_mod } from '../firebase/config';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 const styles = StyleSheet.create({
   container: {
@@ -114,7 +116,14 @@ const Login = props => {
       return setError('E-mail inválido.');
     }
 
-    props.navigation.navigate('Home');
+    signInWithEmailAndPassword(auth_mod, email, password)
+      .then((userLogged) => {
+        console.log("Usuário autenticado: " + JSON.stringify(userLogged))
+        props.navigation.navigate('Home');
+      })
+      .catch((error) => {
+        console.log("Erro ao autenticar: " + JSON.stringify(error.code))
+      })
   };
 
   return (
