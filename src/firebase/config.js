@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { initializeAuth, getAuth, getReactNativePersistence } from "firebase/auth";
 import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
+import { initializeFirestore } from  'firebase/firestore';
 
 const firebaseConfig = {
     apiKey: "AIzaSyBLpXCTvuwqc0C8Ifxmu-x_HyHQCL8qGLQ",
@@ -27,6 +28,9 @@ try {
     throw error;
   }
 }
+
+const db = initializeFirestore(app, { experimentalForceLongPolling: true })
+
 
 export { auth_mod };
 

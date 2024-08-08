@@ -4,6 +4,7 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import { CustomTextInput } from '../components/CustomTextInput';
 import { colors } from '../constants/colors';
 import { useState } from 'react';
+import { collection, addDoc } from 'firebase/firestore';
 
 const styles = StyleSheet.create({
   screen: {
@@ -92,6 +93,10 @@ const NovaPesquisa = props => {
     } else {
       setDataError('');
     }
+
+   
+
+
 
     props.navigation.navigate('Home');
   };
