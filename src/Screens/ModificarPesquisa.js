@@ -139,9 +139,6 @@ const ModificarPesquisa = props => {
   };
 
   const Home = () => {
-
-    //função de modificar aqui
-
     props.navigation.navigate('Home');
   };
 
