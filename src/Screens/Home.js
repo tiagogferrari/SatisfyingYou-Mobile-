@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, SafeAreaView, FlatList, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Searchbar } from 'react-native-paper';
 import { Card } from '../components/Card';
 import { colors } from '../constants/colors';
+import { collection, onSnapshot } from "firebase/firestore";
+import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
+import { db } from '../firebase/config';
 
 const styles = StyleSheet.create({
   container: {
@@ -50,39 +53,53 @@ const styles = StyleSheet.create({
   },
 });
 
-const options = [
-  {
-    id: 1,
-    title: 'CARD TITLE',
-    subtitle: '20/04/2024',
-    image: 'https://picsum.photos/700',
-  },
-  {
-    id: 2,
-    title: 'CARD TITLE',
-    subtitle: '20/04/2024',
-    image: 'https://picsum.photos/700',
-  },
-  {
-    id: 3,
-    title: 'CARD TITLE',
-    subtitle: '20/04/2024',
-    image: 'https://picsum.photos/700',
-  },
-  {
-    id: 4,
-    title: 'CARD TITLE',
-    subtitle: '20/04/2024',
-    image: 'https://picsum.photos/700',
-  },
-];
+// const options = [
+//   {
+//     id: 1,
+//     title: 'CARD TITLE',
+//     subtitle: '20/04/2024',
+//     image: 'https://picsum.photos/700',
+//   },
+//   {
+//     id: 2,
+//     title: 'CARD TITLE',
+//     subtitle: '20/04/2024',
+//     image: 'https://picsum.photos/700',
+//   },
+//   {
+//     id: 3,
+//     title: 'CARD TITLE',
+//     subtitle: '20/04/2024',
+//     image: 'https://picsum.photos/700',
+//   },
+//   {
+//     id: 4,
+//     title: 'CARD TITLE',
+//     subtitle: '20/04/2024',
+//     image: 'https://picsum.photos/700',
+//   },
+// ];
 
 const Home = props => {
+  const [researches, setResearches] = useState([]);
+
+  useEffect(() => {
+    const fetchResearches = onSnapshot(collection(db, "researches"), (snapshot) => {
+      const researchesList = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setResearches(researchesList);
+    }, (error) => {
+      console.error("Erro ao buscar pesquisas: ", error);
+    });
+
+    return () => fetchResearches();
+  }, []);
 
   const handleCardPress = () => {
     props.navigation.navigate('AcoesPesquisa');
   };
-
 
   return (
     <SafeAreaView style={styles.container}>
@@ -96,7 +113,7 @@ const Home = props => {
             />
             <View style={styles.cardContainer}>
               <FlatList
-                data={options}
+                data={researches}
                 horizontal
                 keyExtractor={item => item.id}
                 ItemSeparatorComponent={() => <View style={{ width: 20 }} />}

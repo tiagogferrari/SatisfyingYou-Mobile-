@@ -5,6 +5,7 @@ import { CustomTextInput } from '../components/CustomTextInput';
 import { colors } from '../constants/colors';
 import { useState } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
+import { db } from '../firebase/config';
 
 const styles = StyleSheet.create({
   screen: {
@@ -81,7 +82,14 @@ const NovaPesquisa = props => {
   const [dataError, setDataError] = useState('');
   const [nomeError, setNomeError] = useState('');
 
-  const handleSubmit = () => {
+  const searchCollection = collection(db, "researches");
+
+  const docSearch = {
+    nome: nome,
+    data: data
+  }
+
+  const handleSubmit = async () => {
     if (!nome) {
       return setNomeError('Campo de nome obrigatírio.');
     } else {
@@ -94,10 +102,12 @@ const NovaPesquisa = props => {
       setDataError('');
     }
 
-   
-
-
-
+    try {
+      const docRef = await addDoc(searchCollection, docSearch);
+      console.log("Novo documento inserido com sucesso: " + docRef.id);
+    } catch (error) {
+      console.log("Erro: " + JSON.stringify(error));
+    }
     props.navigation.navigate('Home');
   };
 

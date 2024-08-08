@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
 });
 
 const AcoesPesquisa = props => {
+
   const Modificar = () => {
     props.navigation.navigate('ModificarPesquisa');
   };

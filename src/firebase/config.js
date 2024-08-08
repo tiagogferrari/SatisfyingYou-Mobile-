@@ -32,6 +32,6 @@ try {
 const db = initializeFirestore(app, { experimentalForceLongPolling: true })
 
 
-export { auth_mod };
+export { auth_mod, db };
 
 export default app;

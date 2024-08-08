@@ -12,6 +12,8 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CustomTextInput } from '../components/CustomTextInput';
 import { useState } from 'react';
 import { colors } from '../constants/colors';
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from '../firebase/config';
 
 const styles = StyleSheet.create({
   view: {
@@ -129,14 +131,24 @@ const styles = StyleSheet.create({
 
 const ModificarPesquisa = props => {
   const [open, setOpen] = useState(false);
+  const [nome, setNome] = useState('');
+  const [data, setData] = useState('');
 
   const toggleModal = () => {
     setOpen(prev => !prev);
   };
 
   const Home = () => {
+
+    //função de modificar aqui
+
     props.navigation.navigate('Home');
   };
+
+  const deleteResearches = () => {
+    props.navigation.navigate('Home');
+  }
+
 
   const AcoesPesquisa = () => {
     props.navigation.navigate('AcoesPesquisa');
@@ -148,13 +160,16 @@ const ModificarPesquisa = props => {
         <View style={styles.form}>
           <View style={styles.inputContainer}>
             <Text style={styles.label}>Nome</Text>
-            <CustomTextInput placeholder="Insira seu nome" />
+            <CustomTextInput placeholder="Insira seu nome"
+              onChangeText={setNome}
+            />
           </View>
           <View style={styles.inputContainer}>
             <Text style={styles.label}>Data</Text>
             <TextInput
               style={styles.TextInput}
               placeholder="Insira a data"
+              onChangeText={setData}
               right={
                 <TextInput.Icon
                   icon={() => (
@@ -204,7 +219,7 @@ const ModificarPesquisa = props => {
               <Button
                 style={styles.buttonRed}
                 labelStyle={styles.buttonLabel}
-                onPress={Home}>
+                onPress={deleteResearches}>
                 SIM
               </Button>
               <Button
