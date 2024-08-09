@@ -6,6 +6,7 @@ import { colors } from '../constants/colors';
 import { useState } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../firebase/config';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
 const styles = StyleSheet.create({
   screen: {
@@ -81,12 +82,29 @@ const NovaPesquisa = props => {
   const [nome, setNome] = useState('');
   const [dataError, setDataError] = useState('');
   const [nomeError, setNomeError] = useState('');
+  const [urlImg, setUrlImg] = useState('');
+  const [img, setImg] = useState();
 
   const searchCollection = collection(db, "researches");
 
   const docSearch = {
     nome: nome,
     data: data
+  }
+
+  const addImg = () => {
+    launchCamera({ mediaType: 'photo', cameraType: 'back', quality: 1 })
+      .then(
+        (result) => {
+          setUrlImg(result.assets[0].uri)
+          setImg(result.assets[0])
+        }
+      )
+      .catch(
+        (error) => {
+          console.log("Erro ao capturar: " + JSON.stringify(error))
+        }
+      )
   }
 
   const handleSubmit = async () => {
@@ -143,7 +161,7 @@ const NovaPesquisa = props => {
             <View style={styles.inputContainer}>
               <Text style={styles.label}>Imagem</Text>
               <View style={styles.addImg}>
-                <Text style={styles.texto}>Câmera/Galeria de imagens</Text>
+                <Text style={styles.texto} onPress={addImg}>Câmera/Galeria de imagens</Text>
               </View>
             </View>
           </View>
