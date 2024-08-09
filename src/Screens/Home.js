@@ -53,33 +53,6 @@ const styles = StyleSheet.create({
   },
 });
 
-// const options = [
-//   {
-//     id: 1,
-//     title: 'CARD TITLE',
-//     subtitle: '20/04/2024',
-//     image: 'https://picsum.photos/700',
-//   },
-//   {
-//     id: 2,
-//     title: 'CARD TITLE',
-//     subtitle: '20/04/2024',
-//     image: 'https://picsum.photos/700',
-//   },
-//   {
-//     id: 3,
-//     title: 'CARD TITLE',
-//     subtitle: '20/04/2024',
-//     image: 'https://picsum.photos/700',
-//   },
-//   {
-//     id: 4,
-//     title: 'CARD TITLE',
-//     subtitle: '20/04/2024',
-//     image: 'https://picsum.photos/700',
-//   },
-// ];
-
 const Home = props => {
   const [researches, setResearches] = useState([]);
 
@@ -89,6 +62,7 @@ const Home = props => {
         id: doc.id,
         ...doc.data()
       }));
+      console.log(researchesList);
       setResearches(researchesList);
     }, (error) => {
       console.error("Erro ao buscar pesquisas: ", error);
