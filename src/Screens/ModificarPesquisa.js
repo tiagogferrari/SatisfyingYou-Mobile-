@@ -13,7 +13,7 @@ import { CustomTextInput } from '../components/CustomTextInput';
 import { useState } from 'react';
 import { colors } from '../constants/colors';
 import { doc, updateDoc } from "firebase/firestore";
-import { db } from '../firebase/config';
+import { db, storage } from '../firebase/config';
 
 const styles = StyleSheet.create({
   view: {
@@ -145,7 +145,6 @@ const ModificarPesquisa = props => {
   const deleteResearches = () => {
     props.navigation.navigate('Home');
   }
-
 
   const AcoesPesquisa = () => {
     props.navigation.navigate('AcoesPesquisa');

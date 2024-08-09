@@ -5,8 +5,9 @@ import { CustomTextInput } from '../components/CustomTextInput';
 import { colors } from '../constants/colors';
 import { useState } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
-import { db } from '../firebase/config';
+import { db, storage } from '../firebase/config';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { uploadBytes, ref, getDownloadURL } from 'firebase/storage';
 
 const styles = StyleSheet.create({
   screen: {
@@ -87,10 +88,6 @@ const NovaPesquisa = props => {
 
   const searchCollection = collection(db, "researches");
 
-  const docSearch = {
-    nome: nome,
-    data: data
-  }
 
   const addImg = () => {
     launchCamera({ mediaType: 'photo', cameraType: 'back', quality: 1 })
@@ -120,13 +117,43 @@ const NovaPesquisa = props => {
       setDataError('');
     }
 
-    try {
-      const docRef = await addDoc(searchCollection, docSearch);
-      console.log("Novo documento inserido com sucesso: " + docRef.id);
-    } catch (error) {
-      console.log("Erro: " + JSON.stringify(error));
-    }
-    props.navigation.navigate('Home');
+    const now = new Date();
+    const formattedDateTime = `${now.getDate().toString().padStart(2, '0')}/${(now.getMonth() + 1).toString().padStart(2, '0')}/${now.getFullYear()} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
+    const uniqueImageName = `${nome.replace(/\s+/g, '_')}_${formattedDateTime.replace(/[\/: ]/g, '_')}.jpeg`;
+
+    const imgRef = ref(storage, `images/${uniqueImageName}`)
+    const file = await fetch(urlImg)
+    const blob = await file.blob()
+
+    uploadBytes(imgRef, blob, { contentType: 'image/jpeg' })
+      .then(() => {
+        getDownloadURL(imgRef)
+          .then(async (url) => {
+
+            const docSearch = {
+              nome: nome,
+              data: data,
+              imgUrl: url
+            }
+          
+            try {
+              const docRef = await addDoc(searchCollection, docSearch);
+              console.log("Novo documento inserido com sucesso: " + docRef.id);
+            } catch (error) {
+              console.log("Erro: " + JSON.stringify(error));
+            }
+            props.navigation.navigate('Home');
+          })
+          .catch((error) => {
+            console.log("Erro ao obter url da imagem: " + JSON.stringify(error));
+          })
+      })
+      .catch((error) => {
+        console.log("Erro: " + JSON.stringify(error));
+      })
+
+
+
   };
 
   return (
