@@ -255,7 +255,7 @@ const ModificarPesquisa = props => {
       <View style={styles.view}>
         <View style={styles.form}>
           <View style={styles.inputContainer}>
-            <Text style={styles.label}>Nome {activeSearchId}</Text>
+            <Text style={styles.label}>Nome</Text>
             <CustomTextInput
               placeholder="Insira seu nome"
               onChangeText={setNome}
