@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, SafeAreaView, FlatList, TouchableOpacity } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  SafeAreaView,
+  FlatList,
+  TouchableOpacity,
+} from 'react-native';
 import { Button } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Searchbar } from 'react-native-paper';
 import { Card } from '../components/Card';
 import { colors } from '../constants/colors';
-import { collection, onSnapshot } from "firebase/firestore";
-import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
+import { collection, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase/config';
+import { useResearches } from '../contexts/useResearches';
 
 const styles = StyleSheet.create({
   container: {
@@ -54,26 +60,27 @@ const styles = StyleSheet.create({
 });
 
 const Home = props => {
+  const { selectSearch } = useResearches();
   const [researches, setResearches] = useState([]);
 
   useEffect(() => {
-    const fetchResearches = onSnapshot(collection(db, "researches"), (snapshot) => {
-      const researchesList = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      }));
-      console.log(researchesList);
-      setResearches(researchesList);
-    }, (error) => {
-      console.error("Erro ao buscar pesquisas: ", error);
-    });
+    const fetchResearches = onSnapshot(
+      collection(db, 'researches'),
+      snapshot => {
+        const researchesList = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        console.log(researchesList);
+        setResearches(researchesList);
+      },
+      error => {
+        console.error('Erro ao buscar pesquisas: ', error);
+      },
+    );
 
     return () => fetchResearches();
   }, []);
-
-  const handleCardPress = () => {
-    props.navigation.navigate('AcoesPesquisa');
-  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -91,9 +98,12 @@ const Home = props => {
                 horizontal
                 keyExtractor={item => item.id}
                 ItemSeparatorComponent={() => <View style={{ width: 20 }} />}
-                renderItem={({ item }) =>
-                (
-                  <TouchableOpacity onPress={handleCardPress}>
+                renderItem={({ item }) => (
+                  <TouchableOpacity
+                    onPress={() => {
+                      selectSearch(item.id);
+                      props.navigation.navigate('AcoesPesquisa');
+                    }}>
                     <Card item={item} />
                   </TouchableOpacity>
                 )}

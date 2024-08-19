@@ -5,15 +5,24 @@ import {
   StyleSheet,
   TouchableOpacity,
   Modal,
+  Image,
 } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { CustomTextInput } from '../components/CustomTextInput';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { colors } from '../constants/colors';
-import { doc, updateDoc } from "firebase/firestore";
 import { db, storage } from '../firebase/config';
+import { useResearches } from '../contexts/useResearches';
+import { doc, updateDoc, deleteDoc, collection, where, query, getDocs } from 'firebase/firestore';
+import { launchCamera } from 'react-native-image-picker';
+import {
+  uploadBytes,
+  ref,
+  getDownloadURL,
+  deleteObject,
+} from 'firebase/storage';
 
 const styles = StyleSheet.create({
   view: {
@@ -25,6 +34,11 @@ const styles = StyleSheet.create({
   },
   change: {
     flexDirection: 'row',
+  },
+  errorMessage: {
+    color: colors.red,
+    fontFamily: 'AveriaLibre-Regular',
+    fontSize: 16,
   },
   label: {
     alignSelf: 'flex-start',
@@ -74,6 +88,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: 500,
     gap: 20,
+    marginBottom: 20,
   },
   inputContainer: {
     display: 'flex',
@@ -127,44 +142,133 @@ const styles = StyleSheet.create({
     borderRadius: 0,
     width: '50%',
   },
+  image: {
+    width: 150,
+    height: 150,
+    borderRadius: 10,
+  },
+  addImg: {
+    justifyContent: 'center',
+    width: '50%',
+    height: 70,
+    backgroundColor: 'white',
+  },
 });
 
+const researchOpinionCollection = collection(db, 'research_opinion');
+
 const ModificarPesquisa = props => {
+  const { activeSearchId, getSearch } = useResearches();
   const [open, setOpen] = useState(false);
   const [nome, setNome] = useState('');
   const [data, setData] = useState('');
+  const [dataError, setDataError] = useState('');
+  const [nomeError, setNomeError] = useState('');
+  const [imgUrl, setImgUrl] = useState('');
+  const [oldImgUrl, setOldImgUrl] = useState('');
 
   const toggleModal = () => {
     setOpen(prev => !prev);
   };
 
-  const Home = () => {
+  const uploadNewImageAndDeleteOld = async () => {
+    if (oldImgUrl === imgUrl) return imgUrl;
+
+    const imgRef = ref(storage, `images/${activeSearchId}`);
+
+    await deleteObject(imgRef);
+
+    const newImgRef = ref(storage, `images/${activeSearchId}`);
+
+    const file = await fetch(imgUrl);
+    const blob = await file.blob();
+
+    await uploadBytes(newImgRef, blob, { contentType: 'image/jpeg' });
+    const newImgUrl = await getDownloadURL(imgRef);
+
+    return newImgUrl;
+  };
+
+  const handleSubmit = async () => {
+    if (!nome) {
+      return setNomeError('Campo de nome obrigatírio.');
+    } else {
+      setNomeError('');
+    }
+
+    if (!data) {
+      return setDataError('Campo de data obrigatírio.');
+    } else {
+      setDataError('');
+    }
+
+    const docRef = doc(db, 'researches', activeSearchId);
+
+    const newImgUrl = await uploadNewImageAndDeleteOld();
+
+    await updateDoc(docRef, { imgUrl: newImgUrl, nome, data });
+
     props.navigation.navigate('Home');
   };
 
-  const deleteResearches = () => {
-    props.navigation.navigate('Home');
-  }
+  const deleteResearches = async () => {
+    const docRef = doc(db, 'researches', activeSearchId);
+    const imgRef = ref(storage, `images/${activeSearchId}`);
 
-  const AcoesPesquisa = () => {
-    props.navigation.navigate('AcoesPesquisa');
+    await deleteDoc(docRef)
+    await deleteObject(imgRef);
+
+    const querySnapshot = await getDocs(query(researchOpinionCollection, where('researchId', '==', activeSearchId)));
+
+    querySnapshot.forEach(async (documento) => {
+      await deleteDoc(doc(db, 'research_opinion', documento.id));
+    });
+
+    props.navigation.navigate('Home');
   };
+
+  const addImg = () => {
+    launchCamera({ mediaType: 'photo', cameraType: 'back', quality: 1 })
+      .then(result => {
+        setImgUrl(result.assets[0].uri);
+      })
+      .catch(error => {
+        console.log('Erro ao capturar: ' + JSON.stringify(error));
+      });
+  };
+
+  useEffect(() => {
+    const loadInitialSearch = async () => {
+      const { nome, data, imgUrl } = await getSearch();
+
+      setNome(nome);
+      setData(data);
+      setImgUrl(imgUrl);
+      setOldImgUrl(imgUrl);
+    };
+
+    loadInitialSearch();
+  }, []);
 
   return (
     <ScrollView>
       <View style={styles.view}>
         <View style={styles.form}>
           <View style={styles.inputContainer}>
-            <Text style={styles.label}>Nome</Text>
-            <CustomTextInput placeholder="Insira seu nome"
+            <Text style={styles.label}>Nome {activeSearchId}</Text>
+            <CustomTextInput
+              placeholder="Insira seu nome"
               onChangeText={setNome}
+              value={nome}
             />
+            <Text style={styles.errorMessage}>{nomeError}</Text>
           </View>
           <View style={styles.inputContainer}>
             <Text style={styles.label}>Data</Text>
             <TextInput
               style={styles.TextInput}
               placeholder="Insira a data"
+              value={data}
               onChangeText={setData}
               right={
                 <TextInput.Icon
@@ -174,17 +278,28 @@ const ModificarPesquisa = props => {
                 />
               }
             />
+            <Text style={styles.errorMessage}>{dataError}</Text>
           </View>
-          <Text style={styles.label}>Imagem</Text>
-          <View style={styles.addImg}>
-            <Icon name="party-popper" size={45} color="#c70eb3" />
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>Imagem</Text>
+            {imgUrl ? (
+              <TouchableOpacity onPress={addImg}>
+                <Image source={{ uri: imgUrl }} style={styles.image} />
+              </TouchableOpacity>
+            ) : (
+              <View style={styles.addImg}>
+                <Text style={styles.texto} onPress={addImg}>
+                  Câmera/Galeria de imagens
+                </Text>
+              </View>
+            )}
           </View>
         </View>
         <View style={styles.change}>
           <Button
             labelStyle={styles.BtnText}
             style={styles.BtnC}
-            onPress={() => Home()}>
+            onPress={handleSubmit}>
             SALVAR
           </Button>
           <TouchableOpacity onPress={toggleModal}>

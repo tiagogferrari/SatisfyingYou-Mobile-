@@ -24,14 +24,16 @@ const styles = StyleSheet.create({
   image: {
     width: 150,
     height: 150,
-    borderRadius: 10
+    borderRadius: 10,
   },
 });
 
 export const Card = ({ item }) => {
   return (
     <View style={styles.card}>
-      <Image source={{ uri: item.imgUrl }} style={styles.image} />
+      {item.imgUrl && (
+        <Image source={{ uri: item.imgUrl }} style={styles.image} />
+      )}
       <Text style={styles.title}>{item.nome}</Text>
       <Text style={styles.date}>{item.data}</Text>
     </View>

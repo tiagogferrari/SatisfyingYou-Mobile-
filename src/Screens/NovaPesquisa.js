@@ -1,12 +1,20 @@
-import { Text, View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  SafeAreaView,
+  ScrollView,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import Fontisto from 'react-native-vector-icons/Fontisto';
 import { CustomTextInput } from '../components/CustomTextInput';
 import { colors } from '../constants/colors';
 import { useState } from 'react';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, updateDoc } from 'firebase/firestore';
 import { db, storage } from '../firebase/config';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { launchCamera } from 'react-native-image-picker';
 import { uploadBytes, ref, getDownloadURL } from 'firebase/storage';
 
 const styles = StyleSheet.create({
@@ -76,6 +84,11 @@ const styles = StyleSheet.create({
     fontFamily: 'AveriaLibre-Regular',
     fontSize: 16,
   },
+  image: {
+    width: 150,
+    height: 150,
+    borderRadius: 10,
+  },
 });
 
 const NovaPesquisa = props => {
@@ -83,26 +96,20 @@ const NovaPesquisa = props => {
   const [nome, setNome] = useState('');
   const [dataError, setDataError] = useState('');
   const [nomeError, setNomeError] = useState('');
+  const [imageError, setImageError] = useState('');
   const [urlImg, setUrlImg] = useState('');
-  const [img, setImg] = useState();
 
-  const searchCollection = collection(db, "researches");
-
+  const searchCollection = collection(db, 'researches');
 
   const addImg = () => {
     launchCamera({ mediaType: 'photo', cameraType: 'back', quality: 1 })
-      .then(
-        (result) => {
-          setUrlImg(result.assets[0].uri)
-          setImg(result.assets[0])
-        }
-      )
-      .catch(
-        (error) => {
-          console.log("Erro ao capturar: " + JSON.stringify(error))
-        }
-      )
-  }
+      .then(result => {
+        setUrlImg(result.assets[0].uri);
+      })
+      .catch(error => {
+        console.log('Erro ao capturar: ' + JSON.stringify(error));
+      });
+  };
 
   const handleSubmit = async () => {
     if (!nome) {
@@ -117,43 +124,34 @@ const NovaPesquisa = props => {
       setDataError('');
     }
 
-    const now = new Date();
-    const formattedDateTime = `${now.getDate().toString().padStart(2, '0')}/${(now.getMonth() + 1).toString().padStart(2, '0')}/${now.getFullYear()} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
-    const uniqueImageName = `${nome.replace(/\s+/g, '_')}_${formattedDateTime.replace(/[\/: ]/g, '_')}.jpeg`;
+    if (!urlImg) {
+      return setImageError('Campo de imagem é obrigatírio.');
+    } else {
+      setDataError('');
+    }
 
-    const imgRef = ref(storage, `images/${uniqueImageName}`)
-    const file = await fetch(urlImg)
-    const blob = await file.blob()
+    const docRef = await addDoc(searchCollection, {
+      nome: nome,
+      data: data,
+    });
 
-    uploadBytes(imgRef, blob, { contentType: 'image/jpeg' })
-      .then(() => {
-        getDownloadURL(imgRef)
-          .then(async (url) => {
+    const imgRef = ref(storage, `images/${docRef.id}`);
 
-            const docSearch = {
-              nome: nome,
-              data: data,
-              imgUrl: url
-            }
-          
-            try {
-              const docRef = await addDoc(searchCollection, docSearch);
-              console.log("Novo documento inserido com sucesso: " + docRef.id);
-            } catch (error) {
-              console.log("Erro: " + JSON.stringify(error));
-            }
-            props.navigation.navigate('Home');
-          })
-          .catch((error) => {
-            console.log("Erro ao obter url da imagem: " + JSON.stringify(error));
-          })
-      })
-      .catch((error) => {
-        console.log("Erro: " + JSON.stringify(error));
-      })
+    try {
+      const file = await fetch(urlImg);
+      const blob = await file.blob();
 
+      await uploadBytes(imgRef, blob, { contentType: 'image/jpeg' });
+      const imgUrl = await getDownloadURL(imgRef);
 
+      await updateDoc(docRef, { imgUrl });
 
+      console.log('Novo documento inserido com sucesso: ' + docRef.id);
+      props.navigation.navigate('Home');
+    } catch (error) {
+      await deleteDoc(docRef);
+      console.log('Erro: ' + JSON.stringify(error));
+    }
   };
 
   return (
@@ -187,9 +185,18 @@ const NovaPesquisa = props => {
             </View>
             <View style={styles.inputContainer}>
               <Text style={styles.label}>Imagem</Text>
-              <View style={styles.addImg}>
-                <Text style={styles.texto} onPress={addImg}>Câmera/Galeria de imagens</Text>
-              </View>
+              {urlImg ? (
+                <TouchableOpacity onPress={addImg}>
+                  <Image source={{ uri: urlImg }} style={styles.image} />
+                </TouchableOpacity>
+              ) : (
+                <View style={styles.addImg}>
+                  <Text style={styles.texto} onPress={addImg}>
+                    Câmera/Galeria de imagens
+                  </Text>
+                </View>
+              )}
+              <Text style={styles.errorMessage}>{imageError}</Text>
             </View>
           </View>
           <Button

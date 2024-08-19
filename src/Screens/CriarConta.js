@@ -101,7 +101,6 @@ const CriarConta = props => {
 
     createUserWithEmailAndPassword(auth_mod, email, password)
       .then((userCredential) => {
-        //console.log("Usuário criado com sucesso: " + JSON.stringify(userCredential));
         props.navigation.navigate('Home');
       })
       .catch((error) => {
