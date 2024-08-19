@@ -31,8 +31,8 @@ const Agradecimento = props => {
 
   return (
     <View style={styles.view}>
-      <Text style={styles.texto}>Obrigado por participar da pesquisa!</Text>
-      <Text style={styles.texto}>Aguardamos você no próximo ano!</Text>
+      <Text style={styles.texto}>Obrigado por participar da pesquisa !</Text>
+      <Text style={styles.texto}>Aguardamos você no próximo ano !</Text>
     </View>
   );
 };
