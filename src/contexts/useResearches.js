@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from 'react';
-import { doc, getDoc, query, where, collection } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase/config';
 
 const researchesContext = createContext({});
@@ -22,24 +22,9 @@ export const ResearchesProvider = ({ children }) => {
     return search.data();
   };
 
-  const getOpnion = async () => {
-    if (!activeSearchId) {
-      console.log('Erro: nenhuma pesquisa foi selecionada');
-      return;
-    }
-    console.log(activeSearchId)
-    const rf = collection(db, 'research_opinion')
-    const searchOp = await rf.where('researchId', '==', activeSearchId)
-
-    //const searchRef = doc(db, 'researches', activeSearchId);
-    //const search = await getDoc(searchRef);
-    console.log(searchOp)
-    //return search.data();
-  };
-
   return (
     <researchesContext.Provider
-      value={{ selectSearch, getSearch, getOpnion, activeSearchId }}>
+      value={{ selectSearch, getSearch, activeSearchId }}>
       {children}
     </researchesContext.Provider>
   );
